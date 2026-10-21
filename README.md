@@ -58,6 +58,15 @@ npm test -- --maxWorkers=2
 - 关闭网页不会停止仍在运行的后台任务。后台服务重启后的未确认轮次需要核对，不应盲目重复派发。
 - 凭据通过原生工具或接入中心在本机配置。新增 API Key 使用 Windows DPAPI 保存；公开仓库不附带任何凭据。不要上传自己的数据目录、日志、附件或授权回调地址。
 
+## 参考项目与鸣谢
+
+前期调研与设计还参考了以下项目，感谢其作者和贡献者：
+
+- [DeepSeek Harness（DSH）](https://github.com/deepseek-ai/deepseek-harness)：Agent Harness、插件化能力组织与开发协作架构。
+- [HubMemory／hubmemory-skill](https://github.com/llMinecraft/hubmemory-skill)：本机跨 Agent 会话归档、共享记忆、历史检索与来源追溯；特别感谢原作者 **llMinecraft** 及贡献者。[Gitee 镜像](https://gitee.com/llMinecraft/hubmemory-skill) · [维护者的 Fork](https://github.com/Reyourn/hubmemory-skill)。
+
+二者属于前期调研与设计参考，当前发布版本未将其作为运行依赖，HubMemory 共享记忆尚未接入工作台。HubMemory 的公开源码未附带开源许可证，不纳入本项目 MIT 授权。完整依赖、参考资料及许可边界见[致谢与来源](docs/acknowledgements.md)。
+
 ## 许可、来源与背景素材
 
 项目代码采用 [MIT License](LICENSE)。依赖、参考项目和技术来源见 [致谢与来源](docs/acknowledgements.md)及[第三方声明](THIRD_PARTY_NOTICES.md)。

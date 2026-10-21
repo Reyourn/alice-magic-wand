@@ -1,6 +1,17 @@
 # 开源项目与第三方致谢
 
-感谢以下项目的维护者与贡献者。清单根据本次发布的 `package.json`、`package-lock.json` 以及相同版本的软件包元数据核对；版本是锁文件的解析版本，不是依赖声明中的版本范围。
+感谢以下项目的维护者与贡献者。设计参考根据前期调研记录与上游项目资料核对；直接依赖清单根据本次发布的 `package.json`、`package-lock.json` 以及相同版本的软件包元数据核对，版本是锁文件的解析版本，不是依赖声明中的版本范围。
+
+## 前期调研与设计参考
+
+| 项目 | 作者／来源 | 调研与参考方向 | 当前发布版本的关系 |
+| --- | --- | --- | --- |
+| [DeepSeek Harness（DSH）](https://github.com/deepseek-ai/deepseek-harness) | DeepSeek AI 及贡献者；上游采用 MIT | Agent Harness、插件化能力组织、会话及开发协作架构；曾进行独立路线调研与试验 | 设计参考，未作为工作台运行依赖；独立试验不计入当前工作台的功能验收 |
+| [HubMemory／hubmemory-skill](https://github.com/llMinecraft/hubmemory-skill) | **llMinecraft** 及贡献者；[Gitee 镜像](https://gitee.com/llMinecraft/hubmemory-skill) | 本机跨 Agent 会话归档、共享上下文与记忆、历史检索和来源追溯 | 设计参考；工作台尚未集成其共享记忆能力，当前会话、事件与 Token 记录由工作台自己的实现管理 |
+
+特别感谢 llMinecraft 公开分享 HubMemory 的设计与实现。[维护者的 HubMemory Fork](https://github.com/Reyourn/hubmemory-skill) 是独立仓库，不能替代原作者署名，也不代表已整合至本工作台。
+
+HubMemory 上游当前未附带开源许可证，公开可读不等于获得任意使用或分发授权；本项目 MIT 不覆盖其源码。这里列明参考来源，不重新许可上游代码，也不将设计调研描述为已接入功能。后续如引入上游代码或运行程序，须另行核对适用许可与来源声明。
 
 ## 实际使用的开源依赖
 
