@@ -130,7 +130,8 @@ async function terminalFixture(){
 /** Wires the real terminal launcher into the connection manager so the reason travels the whole chain. */
 async function terminalManagerFixture(){
   const dir=await directory(),store=new MemoryStore(),{files,alive,child,kill,exit,deps}=terminalDoubles();
-  const manager=new ConnectionManager({dataDir:dir,store,adapters:{codex:transport().adapter,claude:transport('claude').adapter,workbuddy:transport('workbuddy').adapter},secrets:{protect:async value=>`cipher:${value}`,unprotect:async value=>value.slice(7)},nativeLogin:{launch:(prof,cwd,config,attemptValue)=>launchTerminalLogin(prof,cwd,config,attemptValue,dir,deps)}});
+  // The terminal double owns execution; never depend on a real CLI being installed.
+  const manager=new ConnectionManager({dataDir:dir,store,adapters:{codex:transport().adapter,claude:transport('claude').adapter,workbuddy:transport('workbuddy').adapter},secrets:{protect:async value=>`cipher:${value}`,unprotect:async value=>value.slice(7)},nativeLogin:{launch:(prof,cwd,config,attemptValue)=>launchTerminalLogin(prof,cwd,{...config,executable:'synthetic-executable'},attemptValue,dir,deps)}});
   cleanups.push(async()=>{try{await manager.close();}catch{/* An unconfirmed stop is expected to refuse a clean close. */}});
   return {manager,store,dir,files,alive,child,kill,exit,pidFile:join(dir,'process.txt'),profile:manager.ensureNative('claude')};
 }

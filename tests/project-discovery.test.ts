@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createHash } from 'node:crypto';
-import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readdir, realpath, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import type { Project, ProjectDiscovery } from '../src/shared/types.js';
@@ -11,9 +11,10 @@ import { runCommand, type TaskRepository } from '../src/server/repositories.js';
 const cleanups:(()=>Promise<void>)[]=[];
 afterEach(async()=>{for(const cleanup of cleanups.splice(0).reverse())await cleanup();});
 async function fixture() {
-  const base=await mkdtemp(join(tmpdir(),'workbench-discovery-'));
+  // Windows TEMP may contain an 8.3 alias; discovery intentionally returns real paths.
+  const base=await realpath(await mkdtemp(join(tmpdir(),'workbench-discovery-')));
   cleanups.push(async()=>{
-    const absolute=resolve(base),parent=resolve(tmpdir());
+    const absolute=resolve(base),parent=await realpath(tmpdir());
     if(!absolute.startsWith(`${parent}${sep}`)||!relative(parent,absolute).startsWith('workbench-discovery-'))throw new Error('Unsafe test cleanup target');
     await rm(absolute,{recursive:true,force:true});
   });
@@ -108,7 +109,7 @@ describe('read-only local project discovery',()=>{
     for(const response of responses){expect(response.statusCode).toBe(200);expect(response.json<ProjectDiscovery>().candidates[0]).toMatchObject({status:'ready',beadsInitialized:false});}
     expect(state()).toEqual(before);expect(validate).not.toHaveBeenCalled();expect(list).not.toHaveBeenCalled();
     const registration=await app.inject({method:'POST',url:'/api/projects',headers:{'x-workbench-token':'test-local-token'},payload:{name:'已接入新名称',path:repo,initializeBeads:true}});
-    expect(registration.statusCode).toBe(201);expect(validate).toHaveBeenCalledOnce();
+    expect(registration.statusCode,registration.body).toBe(201);expect(validate).toHaveBeenCalledOnce();
     const again=await app.inject({url:'/api/projects/discovery'});
     expect(again.json<ProjectDiscovery>().candidates[0]).toMatchObject({name:'已接入新名称',registeredProjectId:registration.json<Project>().id});
     expect(app.workbench.projects()).toHaveLength(1);
