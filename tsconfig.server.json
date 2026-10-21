@@ -1,0 +1,4 @@
+{
+ "extends":"./tsconfig.json", "compilerOptions":{"noEmit":false,"allowImportingTsExtensions":false,"outDir":"dist","rootDir":"src","sourceMap":true},
+ "include":["src/server/**/*.ts","src/shared/**/*.ts"],"exclude":["tests"]
+}

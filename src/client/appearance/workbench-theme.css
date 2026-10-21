@@ -1,0 +1,214 @@
+/* Shared colors and wallpaper for the live workbench and its read-only preview. */
+:root { background: #08090d; color-scheme: dark; }
+
+.workbench-appearance {
+  --ink: #f3f3f6;
+  --muted: #c9c9d2;
+  --accent: #efeff2;
+  --line: #ffffff1c;
+  --soft: #ffffff09;
+  --white: #101014;
+  position: relative;
+  min-height: 100dvh;
+  color: var(--ink);
+  background: #08090d;
+  color-scheme: dark;
+  isolation: isolate;
+}
+
+.workbench-wallpaper {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  background: #08090d;
+}
+
+.workbench-wallpaper img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: left center;
+  filter: brightness(1.2) saturate(1.04);
+}
+
+.workbench-wallpaper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #08090d66 0%, #08090d26 42%, transparent 68%);
+}
+
+/* Keep the portrait clear of the reading column in smaller desktop windows. */
+@media (min-width: 900px) {
+  .workbench-wallpaper img { transform: translateX(clamp(0px, calc((1600px - 100vw) * .6), 160px)); }
+}
+
+.workbench-appearance .app-shell {
+  position: relative;
+  z-index: 1;
+}
+
+/* Translucent large surfaces reveal the wallpaper; reading and editing surfaces stay dark. */
+.workbench-appearance .sidebar { background: #0e0e12db; border-color: var(--line); }
+.workbench-appearance .workspace { background: #0505071a; }
+.workbench-appearance .topbar { background: #101014d9; }
+.workbench-appearance .details-panel { background: #0e0e12b8; }
+.workbench-appearance .conversation-header { background: #0c0c10bd; border-color: var(--line); }
+.workbench-appearance .message-scroll { background: #06060970; }
+.workbench-appearance .welcome { background: #06060970; }
+.workbench-appearance .control-strip,
+.workbench-appearance .human-control { background: #14141bc9; border-color: var(--line); color: #d6d6df; }
+.workbench-appearance .agent-token-usage { background: #111115db; border-color: var(--line); }
+.workbench-appearance .mobile-nav { background: #101014e8; border-color: var(--line); }
+.workbench-appearance .mobile-nav>button { color: #d0d0da; }
+.workbench-appearance .mobile-nav>button.active { background: #ffffff09; color: #f2f2f5; border-color: #e0e0e7; }
+
+/* Text retains its original hierarchy, using neutral ink rather than green. */
+.workbench-appearance :is(.brand, .conversation-title h1, .breadcrumb strong,
+  .current-task strong, .conversation-empty h2, .welcome h1, .empty-state h3,
+  .task-summary h3, .artifact-card h3, .modal-header h2, .catalog-heading>strong,
+  .model-source-option strong, .model-facts dd, .usage-totals b,
+  .usage-breakdown header>strong, .usage-breakdown header b, .step.current strong,
+  .help-content h3, .help-control strong) { color: #f4f4f7; }
+
+.workbench-appearance :is(.eyebrow, .brand small, .project-path, .breadcrumb,
+  .breadcrumb>svg:first-child, .agent-item-text>span, .sidebar-empty,
+  .sidebar-empty>svg, .sidebar-bottom .eyebrow span, .help-link,
+  .conversation-title>div, .conversation-empty .eyebrow, .conversation-empty>p,
+  .conversation-empty>small, .composer-top, .composer-bottom>span, .composer-note,
+  .panel-heading, .panel-heading>span:last-child, .panel-footer, .empty-state,
+  .empty-state p, .welcome-kicker, .welcome h1 span, .welcome-copy, .welcome-foot,
+  .step, .step p, .step.current p, .event-meta, .event-meta time, .event-details,
+  .working-indicator, .task-summary code, .task-meta, .task-meta svg, .task-body,
+  .task-section .eyebrow, .binding>span, .binding>code, .small-label,
+  .artifact-heading time, .artifact-value, .artifact-card footer,
+  .form-intro, .checkbox-label, .field-note, .model-settings-form .field-note,
+  .help-content, .help-content section code, .help-content .capability-row,
+  .model-facts dt, .model-source-options legend, .model-source-option small,
+  .usage-title, .usage-totals, .agent-token-usage>summary, .usage-breakdown header,
+  .usage-coverage, .usage-breakdown dl, .usage-breakdown dt, .usage-note,
+  .task-token-usage .usage-note, .catalog-metadata, .catalog-status,
+  .catalog-description, .catalog-note, .configured-model-fallback) { color: #cdcdd6; }
+
+.workbench-appearance .event-text { color: #f2f2f7; }
+.workbench-appearance .event-tool .event-text { color: #e4e4ed; }
+.workbench-appearance .message-scroll :is(.event-meta, .event-meta time, .event-details,
+  .conversation-empty .eyebrow, .conversation-empty>p, .conversation-empty>small) { color: #e8e8ee; }
+.workbench-appearance .welcome :is(.welcome-kicker, .welcome-copy, .welcome-foot,
+  .step, .step p, h1 span) { color: #e8e8ee; }
+.workbench-appearance .current-task { color: #cdcdd6; }
+.workbench-appearance .composer-note { background: #0c0c10dc; }
+.workbench-appearance .usage-breakdown dd { color: #f3f3f7; }
+.workbench-appearance .editor-form label:not(.checkbox-label) { color: #dedee7; }
+.workbench-appearance :is(.text-button, .control-strip .text-button,
+  .human-control .text-button, .catalog-heading .text-button, .artifact-link) { color: #d6d6df; }
+.workbench-appearance .text-button:hover { color: #fff; }
+.workbench-appearance .dot-separator { color: #a2a2ae; }
+
+/* Member and tool identity stays textual; no celestial remapping. */
+.workbench-appearance .brand-mark { color: #eeeef4; background: #ffffff12; }
+.workbench-appearance :is(.runtime-mark, .runtime-codex, .runtime-claude, .runtime-workbuddy) {
+  color: #dcdce5;
+  background: #ffffff0b;
+  border-color: #ffffff1f;
+}
+.workbench-appearance .agent-item:hover { background: #ffffff08; }
+.workbench-appearance .agent-item.selected { background: #ffffff10; box-shadow: inset 2px 0 0 #e5e5ed; }
+.workbench-appearance :is(.local-badge, .tiny-tag) { color: #dedee7; border-color: #ffffff35; }
+.workbench-appearance :is(.eyebrow b, .role-chip, .panel-tabs>button span,
+  .artifact-kind, .artifact-review, .artifact-test, .human-avatar) { color: #e0e0e9; background: #ffffff0d; }
+.workbench-appearance .icon-button { color: #cfcfd9; }
+.workbench-appearance .icon-button:hover { color: #f4f4f7; background: #ffffff10; }
+.workbench-appearance :is(.available, .unavailable, .connection, .connection-error,
+  .connection-reconnecting, .status, .status-running, .status-in_progress,
+  .status-idle, .status-error, .status-blocked, .status-waiting_approval,
+  .status-unknown, .status-closed) { color: #dddde6; }
+.workbench-appearance :is(.state-dot, .status i) { background: #8c8c97; }
+.workbench-appearance :is(.state-running, .state-idle, .status-running i,
+  .status-in_progress i, .status-idle i, .welcome-kicker .state-dot) { background: #dedee8; }
+.workbench-appearance :is(.state-waiting_approval, .state-starting, .state-interrupting,
+  .state-unknown, .state-error, .status-error i, .status-blocked i,
+  .status-waiting_approval i, .status-unknown i, .status-closed i,
+  .connection-error .state-dot, .connection-reconnecting .state-dot) { background: #b2b2bf; }
+.workbench-appearance .connection-connected .state-dot { background: #dedee8; box-shadow: 0 0 0 3px #ffffff0a; }
+
+/* Fine dividers and cards keep the existing spacing and component shape. */
+.workbench-appearance :is(.project-switch, .sidebar-bottom, .help-link,
+  .onboarding-steps, .task-body, .return-form, .form-actions,
+  .help-content section, .artifact-card footer, .model-facts>div) { border-color: var(--line); }
+.workbench-appearance :is(.current-task, .prompt-hint, .event-tool,
+  .task-card, .artifact-card, .binding, .usage-breakdown) { background: #16161bd6; border-color: #ffffff20; }
+.workbench-appearance .task-closed { background: #151519aa; }
+.workbench-appearance .task-summary:hover { background: #ffffff07; }
+.workbench-appearance .event-human .event-text { color: #f2f2f7; background: #202027e8; border-color: #ffffff19; }
+.workbench-appearance .event-details pre { color: #dddde8; background: #09090edb; }
+.workbench-appearance .prompt-hint { color: #dddde7; }
+.workbench-appearance .prompt-hint svg { color: #c7c7d2; }
+.workbench-appearance :is(.runtime-warning, .recovery-strip, .error-alert,
+  .event-error, .approval-card, .inline-error, .model-settings-block) {
+  color: #d4d4df;
+  background: #26262ceb;
+  border-color: #ffffff32;
+}
+.workbench-appearance :is(.event-error .event-meta, .event-error .event-text,
+  .catalog-error, .catalog-stale) { color: #d4d4df; }
+.workbench-appearance :is(.approval-card pre, .catalog-stale) { background: #ffffff09; }
+.workbench-appearance :is(.usage-partial, .usage-coverage strong) { color: #dedee8; background: #ffffff12; }
+.workbench-appearance .toast { color: #f3f3f6; background: #292930; box-shadow: 0 4px 20px #0008; }
+.workbench-appearance :is(.message-scroll, .panel-content, .agent-token-usage) { scrollbar-color: #62626c transparent; }
+
+/* Inputs and dialogs have solid backing, including when the wallpaper is bright. */
+.workbench-appearance .composer { background: #121217e8; border-color: #ffffff30; box-shadow: 0 3px 10px #0002; }
+.workbench-appearance .composer:focus-within { border-color: #b2b2bd; box-shadow: 0 0 0 3px #ffffff0a; }
+.workbench-appearance .composer-top>label { color: #d0d0dc; background: #ffffff09; border-color: #ffffff20; }
+.workbench-appearance .composer-top select { color: #d0d0dc; }
+.workbench-appearance :is(input, textarea, select) { color: #e4e4ed; }
+.workbench-appearance select option { background: #19191f; color: #e4e4ed; }
+.workbench-appearance .composer textarea::placeholder,
+.workbench-appearance .editor-form input::placeholder,
+.workbench-appearance .editor-form textarea::placeholder,
+.workbench-appearance .small-label textarea::placeholder { color: #c1c1cd; opacity: 1; }
+.workbench-appearance :is(.small-label select, .small-label textarea,
+  .editor-form input:not([type=checkbox]):not([type=radio]),
+  .editor-form textarea, .editor-form select) { background: #19191f; color: #e0e0e9; border-color: #ffffff28; }
+.workbench-appearance :is(.checkbox-label input, .editor-form .model-source-option input) { accent-color: #dcdce5; }
+.workbench-appearance :is(button, a):focus-visible { outline-color: #e0e0e9; }
+.workbench-appearance :is(input, select, textarea):focus { outline-color: #b2b2bd; border-color: #aaaab8; }
+.workbench-appearance .composer textarea:focus { outline: none; }
+.workbench-appearance .primary-button { color: #16161b; background: #e1e1e8; border-color: #e1e1e8; box-shadow: 0 2px 3px #0002; }
+.workbench-appearance .primary-button:hover:not(:disabled) { background: #fff; }
+/* Disabled actions remain readable while retaining a visibly inactive treatment. */
+.workbench-appearance button:disabled { opacity: 1; color: #bcbcc8; }
+.workbench-appearance :is(.text-button, .icon-button):disabled { color: #a6a6b1; opacity: .7; background: transparent; }
+.workbench-appearance .primary-button:disabled { color: #d0d0db; background: #35353f; border-color: #62626f; box-shadow: none; }
+.workbench-appearance :is(input, select, textarea):disabled { color: #d2d2de; -webkit-text-fill-color: #d2d2de; opacity: 1; }
+.workbench-appearance :is(.secondary-button, .model-settings-button, .scroll-latest) { color: #d7d7e1; background: #1b1b21e8; border-color: #ffffff30; }
+.workbench-appearance :is(.secondary-button, .model-settings-button):hover:not(:disabled) { color: #fff; background: #2b2b33; border-color: #ffffff55; }
+.workbench-appearance .stop-button { color: #c6c6d1; }
+.workbench-appearance .stop-button:hover { background: #ffffff0b; }
+.workbench-appearance .scroll-latest { box-shadow: 0 2px 9px #0005; }
+.workbench-appearance .panel-tabs>button:not(.icon-button) { color: #ceced9; }
+.workbench-appearance .panel-tabs>button.active { color: #f0f0f4; }
+.workbench-appearance .panel-tabs>button.active:after { background: #e1e1e9; }
+.workbench-appearance .modal { color: #ededf3; background: #141419fa; border-color: #ffffff32; box-shadow: 0 20px 90px #000b; }
+.workbench-appearance .modal::backdrop { background: #030305a6; }
+.workbench-appearance :is(.model-facts, .model-catalog, .dependency-options) { background: #1a1a21; border-color: #ffffff20; }
+.workbench-appearance .configured-model-fallback { border-color: #ffffff2e; }
+.workbench-appearance .dependency-options legend { color: #dddde7; }
+.workbench-appearance .editor-form .model-source-option { background: #17171e; border-color: #ffffff22; }
+.workbench-appearance .editor-form .model-source-option.selected { background: #292931; border-color: #c0c0cd; }
+.workbench-appearance :is(.form-hint, .runtime-form-info, .help-control) { color: #d1d1dc; background: #ffffff08; }
+
+/* Existing welcome illustration stays in place, with the same neutral palette. */
+.workbench-appearance :is(.empty-icon, .graphic-main, .graphic-member, .member-two,
+  .graphic-link, .step>span, .step.current>span, .step.complete>span) { color: #c9c9d6; background: #ffffff09; border-color: #ffffff24; }
+.workbench-appearance .graphic-orbit { border-color: #ffffff2e; }
+.workbench-appearance .graphic-main { box-shadow: 0 5px 12px #0002; }
+
+@media (max-width: 899px) {
+  .workbench-appearance .sidebar { background: #101014f0; }
+}

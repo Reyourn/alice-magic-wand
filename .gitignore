@@ -1,0 +1,51 @@
+# Dependencies and generated builds
+node_modules/
+dist/
+coverage/
+test-results/
+playwright-report/
+*.tsbuildinfo
+
+# Runtime data, task databases, local evidence and backups
+.workbench/
+.beads/
+.beads.gate.lock
+.agent-workbench/
+/.workbuddy/
+/.workbuddy-ai/
+/.codex/
+/.claude/
+/.codebuddy/
+/backups/
+/archives/
+/attachments/
+/worktrees/
+/docs/validation/
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.log
+*.bak
+*.dump
+
+# Credentials: examples must contain placeholders only
+.env*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+/auth.json
+/credentials.json
+/secrets.json
+/.npmrc
+
+# Local editor and OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo

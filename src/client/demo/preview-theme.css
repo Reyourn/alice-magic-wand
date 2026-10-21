@@ -1,0 +1,59 @@
+/* Only the preview toolbar and background-only visibility are scoped here. */
+.appearance-preview .app-shell { height: calc(100dvh - 36px); }
+.appearance-preview--background-only .workbench-wallpaper::after { background: transparent; }
+
+.appearance-preview .appearance-workbench { position: relative; z-index: 1; }
+.appearance-preview--background-only .appearance-workbench { visibility: hidden; }
+
+.appearance-preview .appearance-toolbar {
+  position: relative;
+  z-index: 2;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 18px;
+  background: #111115e8;
+  border-bottom: 1px solid #ffffff20;
+  color: #d4d4dd;
+  font-size: 11px;
+}
+
+.appearance-preview .appearance-title,
+.appearance-preview .appearance-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.appearance-preview .appearance-title { color: #e8e8ed; }
+.appearance-preview .appearance-badge { color: #c7c7d1; }
+.appearance-preview .appearance-actions { flex-shrink: 0; }
+.appearance-preview .appearance-actions a { color: #c9c9d0; text-decoration: none; }
+.appearance-preview .appearance-actions a:hover { color: #fff; }
+.appearance-preview .background-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 7px;
+  border: 1px solid #ffffff22;
+  border-radius: 4px;
+  background: #ffffff08;
+  color: #d3d3d9;
+  white-space: nowrap;
+}
+.appearance-preview .background-toggle:hover { background: #ffffff15; }
+
+@media (max-width: 899px) {
+  .appearance-preview .appearance-toolbar { padding: 0 12px; gap: 8px; font-size: 11px; }
+  .appearance-preview .appearance-title,
+  .appearance-preview .appearance-actions { gap: 6px; }
+}
+
+@media (max-width: 480px) {
+  .appearance-preview .appearance-toolbar { padding: 0 9px; font-size: 11px; }
+  .appearance-preview .appearance-badge { display: none; }
+  .appearance-preview .background-toggle { gap: 4px; padding: 3px 5px; }
+}
